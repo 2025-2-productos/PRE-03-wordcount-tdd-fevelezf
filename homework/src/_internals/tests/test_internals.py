@@ -1,3 +1,5 @@
+import os
+import shutil
 import sys
 
 from ...wordcount import (
@@ -55,3 +57,25 @@ def test_count_words():
     words = ["hello", "world", "hello", "python"]
     word_counts = count_words(words)
     assert word_counts == {"hello": 2, "world": 1, "python": 1}
+
+
+def test_write_word_counts(tmp_path):
+    """Test write_word_counts function"""
+    output_folder = "data/output/"
+    word_counts = {"hello": 2, "world": 1, "python": 1}
+
+    if os.path.exists(output_folder):
+        shutil.rmtree(output_folder)
+
+    write_word_counts(output_folder, word_counts)
+
+    output_file = os.path.join(output_folder, "wordcount.tsv")
+    assert os.path.exists(output_file), "Output file was not created."
+
+    with open(output_file, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    assert lines == ["hello\t2\n", "world\t1\n", "python\t1\n"]
+
+    # clean up
+    shutil.rmtree(output_folder)
