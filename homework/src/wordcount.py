@@ -2,7 +2,11 @@
 # python -m homework data/input data/output
 import argparse
 
+from homework.src._internals.count_words import count_words
+from homework.src._internals.preprocess_lines import preprocess_lines
 from homework.src._internals.read_all_lines import read_all_lines
+from homework.src._internals.split_into_words import split_lines_into_words
+from homework.src._internals.write_word_counts import write_word_counts
 
 
 def parse_args():
@@ -18,23 +22,6 @@ def parse_args():
     parsed_args = parser.parse_args()
 
     return parsed_args.input, parsed_args.output
-
-
-def preprocess_lines(lines):
-    preprocessed = [line.strip().lower() for line in lines]
-    return preprocessed
-
-
-def split_lines_into_words(lines):
-    pass
-
-
-def count_words(words):
-    pass
-
-
-def write_word_counts(output_folder, word_counts):
-    pass
 
 
 def main():
